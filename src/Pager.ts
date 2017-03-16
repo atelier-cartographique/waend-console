@@ -1,9 +1,11 @@
 
 
-import { SpanPack, PackPage } from "../lib/waend";
-import semaphore from '../lib/Semaphore';
-import { addClass, DIV, SPAN, appendText } from "../lib/util/dom";
+import { SpanPack, PackPage } from "waend-lib";
+import { semaphore } from 'waend-shell';
+import { dom } from "waend-util";
 import { asElement } from "./Command";
+
+const { addClass, DIV, SPAN, appendText } = dom;
 
 export interface PagerOptions {
     className: string;

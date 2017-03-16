@@ -1,10 +1,11 @@
 
 
 import buttonGroups, { Button, ButtonGroup } from './Buttons';
-import { addClass, DIV, emptyElement, getDomForModel, removeClass } from "../lib/util/dom";
-import semaphore from '../lib/Semaphore';
-import { IEventChangeContext } from "../lib/waend";
-import { get as getBinder } from '../lib/Bind';
+import { dom } from "waend-util";
+import { getBinder, semaphore, IEventChangeContext } from 'waend-shell';
+
+
+const { addClass, DIV, emptyElement, getDomForModel, removeClass } = dom;
 
 export interface SidebarOptions {
     className: string;

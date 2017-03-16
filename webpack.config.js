@@ -1,13 +1,13 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const ClosureCompilerPlugin = require('webpack-closure-compiler');
+// const ClosureCompilerPlugin = require('webpack-closure-compiler');
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
 
     entry: {
-        console: './webconsole/index.ts'
+        console: './index.ts'
     },
 
     output: {

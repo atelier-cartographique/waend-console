@@ -1,8 +1,9 @@
 
 import * as Promise from 'bluebird';
 import { uniqueId } from 'lodash';
-import { addClass, DIV, removeElement } from "../lib/util/dom";
+import { dom } from 'waend-util';
 
+const { addClass, DIV, removeElement } = dom;
 
 export interface IDisplay {
     node: HTMLElement;

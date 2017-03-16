@@ -1,7 +1,6 @@
 
 import * as url from 'url';
-import semaphore from '../lib/Semaphore';
-import { IEventChangeContext } from "../lib/waend";
+import { IEventChangeContext, semaphore } from 'waend-shell';
 
 
 type HistoryPopFn = (a: PopStateEvent) => void;

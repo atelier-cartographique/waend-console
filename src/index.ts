@@ -10,43 +10,51 @@
 
 
 
-import config from '../config';
-import { get as getBinder } from '../lib/Bind';
-import { configure as initSync } from '../lib/Sync';
+import { getconfig } from 'waend-lib';
+import { Bind, getBinder, setenv, configure as initSync } from 'waend-shell';
+import createMap from 'waend-map';
 import { Console } from './Console';
-import map from '../map';
-import Env from '../lib/Env';
 import { initHistory } from "./WebHistory";
 
+const withBinder: (a: Bind) => void =
+    (binder) => {
+        const elementWC = document.querySelector('#wc');
+        const elementMap = document.querySelector('#map');
+        if (elementWC && elementMap) {
+            const wcons = Console();
+            elementWC.appendChild(wcons.node);
+            const shell = wcons.start();
 
 
-function init() {
-    const elementWC = document.querySelector('#wc');
-    const elementMap = document.querySelector('#map');
-    if (elementWC && elementMap) {
-        const wcons = Console();
-        const wmap = map(elementMap);
-        Env.set('map', wmap);
-
-        elementWC.appendChild(wcons.node);
-        const shell = wcons.start();
-
-        const historyPopContext: (a: PopStateEvent) => void =
-            (event) => {
-                if (event.state) {
-                    shell.switchContext(event.state);
-                }
-            };
-
-        getBinder()
-            .getMe()
-            .then(user => { shell.loginUser(user); })
-            .catch(() => 0);
+            binder.getMe()
+                .then(user => { shell.loginUser(user); })
+                .catch(() => 0);
 
 
-        initSync(config.notifyUrl);
-        shell.switchContext(initHistory('/map/', historyPopContext));
+            getconfig('loginUrl').then((url) => setenv('LOGIN_URL', url));
+            getconfig('defaultProgramUrl').then((defaultProgramUrl) => {
+                setenv('map', createMap(elementMap, defaultProgramUrl));
+            });
+            getconfig('notifyUrl').then(initSync);
+
+
+            const historyPopContext: (a: PopStateEvent) => void =
+                (event) => {
+                    if (event.state) {
+                        shell.switchContext(event.state);
+                    }
+                };
+
+            shell.switchContext(initHistory('/console/', historyPopContext));
+
+        }
     }
+
+const init = () => {
+    getconfig('apiUrl')
+        .then((apiUrl) => {
+            withBinder(getBinder(apiUrl));
+        })
 }
 
 document.onreadystatechange = () => {

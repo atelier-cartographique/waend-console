@@ -8,7 +8,7 @@
  *
  */
 
-import semaphore from '../lib/Semaphore';
+import { semaphore } from 'waend-shell';
 
 type CmdFn = (a: Element) => void;
 

@@ -4,8 +4,24 @@
   "description": "waend console",
   "main": "dist/console.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules/.bin/webpack"
   },
   "author": "Pierre Marchand",
-  "license": "AGPL-3.0"
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.1.2",
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "source-map-loader": "^0.2.0",
+    "typescript": "^2.2.1",
+    "waend-commands": "github:atelier-cartographique/waend-commands",
+    "waend-lib": "github:atelier-cartographique/waend-lib",
+    "waend-map": "github:atelier-cartographique/waend-map",
+    "waend-shell": "github:atelier-cartographique/waend-shell",
+    "waend-util": "github:atelier-cartographique/waend-util",
+    "webpack": "^2.2.1"
+  }
 }

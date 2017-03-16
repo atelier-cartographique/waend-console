@@ -1,9 +1,9 @@
 
-import { Span } from "../lib/waend";
-import semaphore from '../lib/Semaphore';
-import { addClass, SPAN } from "../lib/util/dom";
+import { Span } from 'waend-lib';
+import { semaphore } from 'waend-shell';
+import { dom } from "waend-util";
 
-
+const { addClass, SPAN } = dom;
 
 const onClick: (a: string[]) => (b: MouseEvent) => void =
     (commands) => (event) => {

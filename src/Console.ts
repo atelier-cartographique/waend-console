@@ -11,19 +11,52 @@
 
 import * as Promise from 'bluebird';
 
-import { set as setenv } from '../lib/Env';
-import semaphore from '../lib/Semaphore';
-import Mutex from '../lib/Mutex';
+import { semaphore, setenv, Shell, CommandSet } from 'waend-shell';
+import { SpanPack, Mutex, Extent } from 'waend-lib';
 
 import { Pager } from "./Pager";
 import { Input } from "./Input";
 import { Sidebar } from "./Sidebar";
-import { DIV, px } from "../lib/util/dom";
-import { Shell } from "../lib/Shell";
-import { SpanPack } from "../lib/waend";
-import { Extent } from "../lib/Geometry";
+import { dom } from "waend-util";
 import { EndFn, Display, IDisplay } from "./Display";
+import * as CMD from 'waend-commands';
 
+const { DIV, px } = dom;
+
+
+const shellCommands = [
+    CMD.login,
+    CMD.changeContext,
+];
+
+const userCommands = [
+    CMD.attach,
+    CMD.create,
+    CMD.getAttribute,
+    CMD.setAttribute,
+    CMD.printCurrentContext,
+    ...shellCommands
+];
+
+const groupCommands = [
+    ...userCommands
+];
+
+const layerCommands = [
+    ...groupCommands
+];
+
+const featureCommands = [
+    ...layerCommands
+];
+
+const commands: CommandSet = [
+    shellCommands,
+    userCommands,
+    groupCommands,
+    layerCommands,
+    featureCommands
+];
 
 export interface IConsole {
     node: Element;
@@ -82,6 +115,7 @@ export const Console: () => IConsole =
                     .then((unlock) => {
                         input.disable();
                         shell.exec(command)
+                            .catch((err) => console.log(err))
                             .finally(() => {
                                 pager.newPage();
                                 input.enable();
@@ -108,7 +142,7 @@ export const Console: () => IConsole =
 
         const start =
             () => {
-                const shell = new Shell();
+                const shell = new Shell(commands);
                 setenv<ScreenFn>('screen', display);
 
                 semaphore.observe<string>('command:run', runCommand(shell));
@@ -127,29 +161,4 @@ export const Console: () => IConsole =
     }
 
 
-
-//     display(options = {}) {
-//         const display = new Display(this.root);
-//         const mc = this.mapContainer;
-//         const fullscreen = options.fullscreen;
-//         this.hide();
-//         if (fullscreen) {
-//             this.isFullscreen = true;
-//             addClass(mc, 'wc-fullscreen');
-//         }
-//         display.setFinalizer(function () {
-//             removeClass(mc, 'wc-fullscreen');
-//             this.show();
-//             if (fullscreen) {
-//                 this.isFullscreen = false;
-//                 semaphore.signal('map:resize');
-//             }
-//         }, this);
-//         if (fullscreen) {
-//             _.defer(() => {
-//                 semaphore.signal('map:resize');
-//             });
-//         }
-//         return display;
-//     }
 

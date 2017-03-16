@@ -1,7 +1,9 @@
 
-import semaphore from '../lib/Semaphore';
+import { semaphore } from 'waend-shell';
 import { History, IHistory } from './History';
-import { isKeyCode, KeyCode, addClass, INPUT, DIV, removeClass } from "../lib/util/dom";
+import { dom } from "waend-util";
+
+const { isKeyCode, KeyCode, addClass, INPUT, DIV, removeClass } = dom;
 
 export interface InputOptions {
     className: string;
@@ -26,7 +28,7 @@ const eventHandler: (a: HTMLInputElement, b: IHistory) => (c: KeyboardEvent) => 
             input.value = '';
             if (cmd.length > 0) {
                 history.push(cmd);
-                semaphore.signal('input:line', cmd);
+                semaphore.signal('command:run', cmd);
             }
 
         }
@@ -43,19 +45,19 @@ const eventHandler: (a: HTMLInputElement, b: IHistory) => (c: KeyboardEvent) => 
 export const Input: (a: InputOptions) => IInput =
     (options) => {
         const history = History();
-        const node = INPUT();
+        const node = DIV();
         const inputField = INPUT();
         const inputPrompt = DIV();
         const inputBottomline = DIV();
 
         addClass(node, options.className);
-        addClass(inputField, 'wc-input');
+        addClass(inputField, 'wc-input-field');
         addClass(inputPrompt, 'wc-input-prompt');
         addClass(inputBottomline, 'wc-input-bottom-line');
 
         inputField.setAttribute('type', 'text');
         inputField.addEventListener('keyup',
-            eventHandler(node, history), false);
+            eventHandler(inputField, history), false);
 
         inputPrompt.appendChild(document.createTextNode('>'));
         node.appendChild(inputPrompt);
