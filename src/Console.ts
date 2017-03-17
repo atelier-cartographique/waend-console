@@ -21,12 +21,13 @@ import { dom } from "waend-util";
 import { EndFn, Display, IDisplay } from "./Display";
 import * as CMD from 'waend-commands';
 
-const { DIV, px } = dom;
+const { DIV, px, addClass } = dom;
 
 
 const shellCommands = [
     CMD.login,
     CMD.changeContext,
+    CMD.lookup,
 ];
 
 const userCommands = [
@@ -101,11 +102,10 @@ export const Console: () => IConsole =
         const input = Input({ className: 'wc-input' });
         const sidebar = Sidebar({ className: 'wc-sidebar' });
 
+        addClass(node, 'wc-container');
         node.appendChild(sidebar.node);
         node.appendChild(pager.node);
         node.appendChild(input.node);
-
-
 
         const mutx = new Mutex();
 

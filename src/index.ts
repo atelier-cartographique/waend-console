@@ -33,7 +33,10 @@ const withBinder: (a: Bind) => void =
 
             getconfig('loginUrl').then((url) => setenv('LOGIN_URL', url));
             getconfig('defaultProgramUrl').then((defaultProgramUrl) => {
-                setenv('map', createMap(elementMap, defaultProgramUrl));
+                getconfig('mediaUrl').then((mediaUrl) => {
+                    setenv('map', createMap(
+                        elementMap, defaultProgramUrl, mediaUrl));
+                });
             });
             getconfig('notifyUrl').then(initSync);
 
