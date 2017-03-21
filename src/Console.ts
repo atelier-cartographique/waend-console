@@ -36,6 +36,13 @@ const userCommands = [
     CMD.getAttribute,
     CMD.setAttribute,
     CMD.printCurrentContext,
+    CMD.setRegion,
+    CMD.getRegion,
+    CMD.bufferRegion,
+    CMD.getRegionCenter,
+    CMD.printRegion,
+    CMD.popRegion,
+    CMD.list,
     ...shellCommands
 ];
 

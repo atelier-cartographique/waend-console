@@ -69,7 +69,7 @@ export const Pager: (a: PagerOptions) => IPager =
     (options) => {
         const node = DIV();
         const pages: IPage[] = [];
-        const pageIndex = -1;
+        let pageIndex = -1;
 
         addClass(node, options.className);
 
@@ -87,6 +87,7 @@ export const Pager: (a: PagerOptions) => IPager =
                 const page = makePage();
                 pages.push(page);
                 node.appendChild(page.node);
+                pageIndex = pages.length - 1;
                 return page;
             }
 
