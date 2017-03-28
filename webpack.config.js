@@ -18,6 +18,7 @@ module.exports = {
     },
 
     resolve: {
+        mainFields: ['browser', 'main'],
         extensions: ['.ts', '.js']
     },
 
