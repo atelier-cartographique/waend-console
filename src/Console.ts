@@ -30,7 +30,7 @@ import { SpanPack, Mutex, Extent } from 'waend-lib';
 
 import { Pager } from "./Pager";
 import { Input } from "./Input";
-import { Sidebar } from "./Sidebar";
+// import { Sidebar } from "./Sidebar";
 import { dom } from "waend-util";
 import { EndFn, Display, IDisplay } from "./Display";
 import * as CMD from 'waend-commands';
@@ -121,10 +121,10 @@ export const Console: () => IConsole =
         const node = DIV();
         const pager = Pager({ className: 'wc-pager' });
         const input = Input({ className: 'wc-input' });
-        const sidebar = Sidebar({ className: 'wc-sidebar' });
+        // const sidebar = Sidebar({ className: 'wc-sidebar' });
 
         addClass(node, 'wc-container');
-        node.appendChild(sidebar.node);
+        // node.appendChild(sidebar.node);
         node.appendChild(pager.node);
         node.appendChild(input.node);
 

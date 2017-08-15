@@ -25,15 +25,21 @@
 
 import { getconfig } from 'waend-lib';
 import { Bind, getBinder, setenv, configure as initSync } from 'waend-shell';
-import createMap from 'waend-map';
+// import createMap from 'waend-map';
 import { Console } from './Console';
 import { initHistory } from "./WebHistory";
 
 const withBinder: (a: Bind) => void =
     (binder) => {
-        const elementWC = document.querySelector('#wc');
-        const elementMap = document.querySelector('#map');
-        if (elementWC && elementMap) {
+        // const elementWC = document.querySelector('#wc');
+        // const elementMap = document.querySelector('#map');
+        const elementWC = document.createElement('div');
+        // const elementMap = document.createElement('div');
+        elementWC.id = 'wc';
+        // elementMap.id = 'map';
+        document.body.appendChild(elementWC);
+        // document.body.appendChild(elementMap);
+
             const wcons = Console();
             elementWC.appendChild(wcons.node);
             const shell = wcons.start();
@@ -45,12 +51,6 @@ const withBinder: (a: Bind) => void =
 
 
             getconfig('loginUrl').then((url) => setenv('LOGIN_URL', url));
-            getconfig('defaultProgramUrl').then((defaultProgramUrl) => {
-                getconfig('mediaUrl').then((mediaUrl) => {
-                    setenv('map', createMap(
-                        elementMap, defaultProgramUrl, mediaUrl));
-                });
-            });
             getconfig('notifyUrl').then(initSync);
 
 
@@ -63,7 +63,6 @@ const withBinder: (a: Bind) => void =
 
             shell.switchContext(initHistory('/console/', historyPopContext));
 
-        }
     }
 
 const init = () => {

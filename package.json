@@ -26,6 +26,7 @@
     "karma-typescript-es6-transform": "^1.0.0-beta.6",
     "karma-typescript-preprocessor2": "^1.2.1",
     "karma-webpack": "^2.0.3",
+    "less": "^2.7.2",
     "phantomjs-prebuilt": "^2.1.14",
     "source-map-loader": "^0.2.0",
     "typescript": "^2.2.1",
@@ -35,5 +36,6 @@
     "waend-shell": "github:atelier-cartographique/waend-shell",
     "waend-util": "github:atelier-cartographique/waend-util",
     "webpack": "^2.2.1"
-  }
+  },
+  "dependencies": {}
 }
